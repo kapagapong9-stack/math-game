@@ -51,22 +51,24 @@ html, body {
             background-attachment: fixed;
             overscroll-behavior-y: none;
         }
-       /* ส่วนแป้นพิมพ์ (ฝั่งขวา ยึดติดขอบจอ) */
-.keypad-area {
-    display: none; /* ซ่อนไว้ก่อน จะแสดงเมื่อกดช่องตอบ */
-    flex: 0 0 35%; /* กินพื้นที่ฝั่งขวา 35% */
-    min-width: 250px;
-    height: 100vh;
-    background-color: #e5e7eb;
-    border-left: 3px solid #d1d5db;
-    box-shadow: -4px 0 15px rgba(0,0,0,0.1);
-    z-index: 100;
-}
-.keypad-area.show-keypad {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
+/* ส่วนแป้นพิมพ์ (ฝั่งขวา ยึดติดขอบจอ สัดส่วน 20%) */
+        .keypad-area {
+            display: none; /* ซ่อนไว้ก่อน จะแสดงเมื่อกดช่องตอบ */
+            flex: 0 0 22%; /* ลดพื้นที่เหลือประมาณ 20-22% */
+            min-width: 200px; /* ลดขนาดกว้างขั้นต่ำลง */
+            max-width: 240px;
+            height: 100vh;
+            background-color: #e5e7eb;
+            border-left: 3px solid #d1d5db;
+            box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .keypad-area.show-keypad {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* ดันเวลาไว้บน ดันปุ่มไว้ล่าง */
+        }
 #virtual-keypad {
     height: 100% !important;
     width: 100%;
@@ -1066,25 +1068,32 @@ html, body {
     </div> </div> 
     
 <div class="keypad-area">
-    <div id="virtual-keypad" class="w-full h-full bg-gray-200 p-1.5 grid grid-cols-4 grid-rows-4 gap-1.5">
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('1')">1</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('2')">2</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('3')">3</button>
-        <button class="btn bg-orange-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-orange-600 active:bg-orange-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualBackspace()">⌫</button>
+    <div class="flex flex-col items-center justify-center py-3 bg-white border-b-2 border-gray-300 shadow-sm">
+        <span class="text-sm font-bold text-gray-500">เวลา (วินาที)</span>
+        <div class="text-xl sm:text-2xl font-bold text-gray-700 hidden">เวลา: <span id="old-time-left" class="text-red-500">60</span>s</div>
+    </div>
+
+    <div class="flex-grow"></div> 
+
+    <div id="virtual-keypad" class="w-full bg-gray-200 p-1.5 grid grid-cols-4 grid-rows-4 gap-1.5 pb-4">
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('1')">1</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('2')">2</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('3')">3</button>
+        <button class="btn bg-orange-100 text-lg font-bold shadow-sm rounded text-orange-600 active:bg-orange-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualBackspace()">⌫</button>
         
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('4')">4</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('5')">5</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('6')">6</button>
-        <button class="btn bg-red-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-red-600 active:bg-red-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('-')">-</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('4')">4</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('5')">5</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('6')">6</button>
+        <button class="btn bg-red-100 text-lg font-bold shadow-sm rounded text-red-600 active:bg-red-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('-')">-</button>
         
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('7')">7</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('8')">8</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('9')">9</button>
-        <button class="btn bg-blue-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('/')">/</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('7')">7</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('8')">8</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('9')">9</button>
+        <button class="btn bg-blue-100 text-lg font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('/')">/</button>
         
-        <button class="btn bg-blue-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('.')">.</button>
-        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('0')">0</button>
-        <button class="btn bg-green-500 text-white text-lg sm:text-xl font-bold shadow-sm rounded active:bg-green-600 col-span-2 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualNext()">ถัดไป ➜</button>
+        <button class="btn bg-blue-100 text-lg font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('.')">.</button>
+        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('0')">0</button>
+        <button class="btn bg-green-500 text-white text-base font-bold shadow-sm rounded active:bg-green-600 col-span-2 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualNext()">ถัดไป ➜</button>
     </div>
 </div>
 
