@@ -469,6 +469,29 @@ html, body {
         }
         .keypad-btn-submit:active { transform: translateY(5px); box-shadow: 0 0px 0 #16a34a; }
 
+    /* 🛠️ ปรับแต่งขนาดโจทย์และช่องเติมคำตอบให้กะทัดรัดพอดี 2 ฝั่ง */
+        #questions-container > div {
+            padding: 0.35rem 0.75rem !important; /* ลดความอ้วนของกล่องโจทย์แต่ละข้อ */
+            font-size: 1.15rem !important; /* ปรับขนาดตัวอักษรโจทย์ */
+            margin-bottom: 0 !important;
+        }
+        #questions-container input {
+            height: 35px !important; /* ลดความสูงช่องเติมคำตอบ */
+            width: 80px !important; /* ล็อกความกว้างไว้ไม่ให้ดันกล่องเบี้ยว */
+            font-size: 1.25rem !important;
+            padding: 0.2rem !important;
+            border-radius: 0.5rem !important;
+            text-align: center;
+            border: 2px solid #cbd5e1 !important;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05) !important;
+        }
+        /* เปลี่ยนสีขอบเวลากดช่องคำตอบ */
+        #questions-container input:focus {
+            border-color: #3b82f6 !important;
+            outline: none !important;
+            background-color: #eff6ff !important;
+        }
+
 </style>
 
 <script>
@@ -618,21 +641,26 @@ html, body {
             </div>
         </div>
 
-        <div id="game-page" class="page">
-            <div class="card fade-in">
-                   <h2 id="game-mode-title" class="hidden"></h2>
-                    <div id="time-bar" class="hidden"></div>
-                <div id="game-area" class="text-center">
-                    <div id="pre-game-screen">
-                        <p class="text-xl mb-6">คุณมีเวลา 10 นาที (600 วินาที) สำหรับ 10 ข้อ</p>
-                        <button id="start-game-btn" class="btn btn-primary text-4xl px-16 py-8">เริ่ม!</button>
+                <div id="game-page" class="hidden h-full w-full flex-col justify-center p-2 sm:p-4">
+                    
+                    <div id="pre-game-screen" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 max-w-lg mx-auto w-full text-center flex flex-col justify-center items-center">
+                        <div class="text-6xl mb-2 animate-bounce">⏱️</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">เตรียมตัวให้พร้อม!</h3>
+                        <p class="text-gray-600 mb-2">เกมกำลังจะเริ่มใน...</p>
+                        <div id="countdown-timer" class="text-7xl font-black text-blue-600 drop-shadow-md">3</div>
                     </div>
-                    <div id="questions-screen" class="hidden">
-                        <div id="questions-container" class="grid grid-cols-2 gap-x-6 gap-y-2 mb-2 w-full max-w-4xl mx-auto items-center"></div>
-                        <div class="text-center mt-4">
-                            <button id="submit-answers-btn" class="btn btn-secondary text-xl w-full max-w-md py-3 shadow-lg shadow-green-500/30">ส่งคำตอบ  🚀 </button>
+
+                    <div id="questions-screen" class="hidden bg-white rounded-2xl shadow-sm border border-gray-200 p-4 w-full max-w-5xl mx-auto flex flex-col justify-center">
+                        <h2 id="game-mode-title" class="hidden"></h2>
+                        <div id="time-bar" class="hidden"></div>
+
+                        <div id="questions-container" class="grid grid-cols-2 gap-x-6 gap-y-2 w-full items-center mb-3"></div>
+                        
+                        <div class="text-center mt-1">
+                            <button id="submit-answers-btn" class="btn bg-green-500 hover:bg-green-600 text-white text-lg font-bold w-full max-w-xs mx-auto py-2 rounded-xl shadow-[0_5px_0_#16a34a] active:translate-y-[5px] active:shadow-[0_0px_0_#16a34a] transition-all tracking-wide">ส่งคำตอบ 🚀</button>
                         </div>
                     </div>
+                </div>
                     <div id="score-screen" class="hidden text-center">
                         <h3 class="text-4xl font-bold mb-4">ผลคะแนนของคุณ</h3>
                         <p id="final-score" class="text-8xl font-bold text-green-500 my-8"></p>
