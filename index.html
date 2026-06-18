@@ -437,6 +437,38 @@ html, body {
   background-attachment: fixed; 
 }
 
+    /* 🎮 เอฟเฟคปุ่มกดแบบ 3D (พอกดแล้วปุ่มจะยุบลงไป) */
+        .keypad-btn-3d {
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 0 #cbd5e1; /* ขอบล่างสีเทา สร้างมิติ */
+            border: 1px solid #e2e8f0;
+        }
+        .keypad-btn-3d:active {
+            transform: translateY(5px); /* เวลากดให้ยุบลง 5px */
+            box-shadow: 0 0px 0 #cbd5e1; /* ซ่อนขอบล่างให้ดูเหมือนปุ่มจมลงไป */
+        }
+
+        /* ปุ่มสีฟ้า (เครื่องหมาย) */
+        .keypad-btn-action {
+            transition: all 0.1s;
+            box-shadow: 0 5px 0 #93c5fd; 
+        }
+        .keypad-btn-action:active { transform: translateY(5px); box-shadow: 0 0px 0 #93c5fd; }
+
+        /* ปุ่มสีส้ม (ลบ) */
+        .keypad-btn-delete {
+            transition: all 0.1s;
+            box-shadow: 0 5px 0 #fdba74;
+        }
+        .keypad-btn-delete:active { transform: translateY(5px); box-shadow: 0 0px 0 #fdba74; }
+
+        /* ปุ่มสีเขียว (ถัดไป) */
+        .keypad-btn-submit {
+            transition: all 0.1s;
+            box-shadow: 0 5px 0 #16a34a;
+        }
+        .keypad-btn-submit:active { transform: translateY(5px); box-shadow: 0 0px 0 #16a34a; }
+
 </style>
 
 <script>
@@ -1068,32 +1100,33 @@ html, body {
     </div> </div> 
     
 <div class="keypad-area">
-    <div class="flex flex-col items-center justify-center py-3 bg-white border-b-2 border-gray-300 shadow-sm">
-        <span class="text-sm font-bold text-gray-500">เวลา (วินาที)</span>
-        <div class="text-xl sm:text-2xl font-bold text-gray-700 hidden">เวลา: <span id="old-time-left" class="text-red-500">60</span>s</div>
+    <div class="flex flex-col items-center justify-center py-2.5 bg-slate-50 border-b border-slate-300 shadow-md relative z-10">
+        <span id="keypad-mode-name" class="text-[11px] font-extrabold text-blue-700 bg-blue-100 border border-blue-200 px-3 py-0.5 rounded-full mb-1.5 shadow-inner">กำลังเล่น</span>
+        <span id="time-left" class="text-4xl font-black text-red-500 drop-shadow-sm tracking-tighter leading-none">60</span>
+        <span class="text-[10px] font-bold text-slate-400 mt-1.5">เวลา (วินาที)</span>
     </div>
 
-    <div class="flex-grow"></div> 
+    <div class="flex-grow bg-slate-200 shadow-inner"></div> 
 
-    <div id="virtual-keypad" class="w-full bg-gray-200 p-1.5 grid grid-cols-4 grid-rows-4 gap-1.5 pb-4">
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('1')">1</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('2')">2</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('3')">3</button>
-        <button class="btn bg-orange-100 text-lg font-bold shadow-sm rounded text-orange-600 active:bg-orange-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualBackspace()">⌫</button>
+    <div id="virtual-keypad" class="w-full bg-slate-200 p-2 grid grid-cols-4 grid-rows-4 gap-2.5 pb-4">
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('1')">1</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('2')">2</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('3')">3</button>
+        <button class="keypad-btn-delete bg-orange-100 text-xl font-black rounded-xl text-orange-600 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualBackspace()">⌫</button>
         
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('4')">4</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('5')">5</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('6')">6</button>
-        <button class="btn bg-red-100 text-lg font-bold shadow-sm rounded text-red-600 active:bg-red-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('-')">-</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('4')">4</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('5')">5</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('6')">6</button>
+        <button class="keypad-btn-action bg-blue-50 text-xl font-black rounded-xl text-blue-600 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('-')">-</button>
         
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('7')">7</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('8')">8</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('9')">9</button>
-        <button class="btn bg-blue-100 text-lg font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('/')">/</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('7')">7</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('8')">8</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('9')">9</button>
+        <button class="keypad-btn-action bg-blue-50 text-xl font-black rounded-xl text-blue-600 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('/')">/</button>
         
-        <button class="btn bg-blue-100 text-lg font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('.')">.</button>
-        <button class="btn bg-white text-lg font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualType('0')">0</button>
-        <button class="btn bg-green-500 text-white text-base font-bold shadow-sm rounded active:bg-green-600 col-span-2 flex items-center justify-center py-3 sm:py-4" onmousedown="event.preventDefault()" onclick="virtualNext()">ถัดไป ➜</button>
+        <button class="keypad-btn-action bg-blue-50 text-xl font-black rounded-xl text-blue-600 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('.')">.</button>
+        <button class="keypad-btn-3d bg-white text-xl font-black rounded-xl text-slate-700 flex items-center justify-center py-2" onmousedown="event.preventDefault()" onclick="virtualType('0')">0</button>
+        <button class="keypad-btn-submit bg-green-500 text-white text-lg font-black rounded-xl col-span-2 flex items-center justify-center py-2 tracking-wide" onmousedown="event.preventDefault()" onclick="virtualNext()">ถัดไป ➜</button>
     </div>
 </div>
 
@@ -1713,7 +1746,16 @@ async function startGame(mode) {
     appState.gameMode = mode;
     const titleEl = document.getElementById('game-mode-title');
     if (titleEl) titleEl.textContent = mode === 'rank' ? 'โหมดจัดอันดับ' : 'โหมดฝึกซ้อม';
-
+    const modeNameEl = document.getElementById('keypad-mode-name');
+    if (modeNameEl) {
+        if (mode === 'practice') {
+            modeNameEl.textContent = 'โหมดฝึกซ้อม';
+            modeNameEl.className = 'text-[11px] font-extrabold text-blue-700 bg-blue-100 border border-blue-200 px-3 py-0.5 rounded-full mb-1.5 shadow-inner';
+        } else {
+            modeNameEl.textContent = 'โหมดจัดอันดับ 🏆';
+            modeNameEl.className = 'text-[11px] font-extrabold text-amber-700 bg-amber-100 border border-amber-300 px-3 py-0.5 rounded-full mb-1.5 shadow-inner';
+        }
+    }
     showLoading(true);
 
     try {
