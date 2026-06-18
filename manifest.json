@@ -1,0 +1,9 @@
+{
+  "name": "คิดเลขเร็ว วังน้ำเย็นวิทยาคม",
+  "short_name": "คิดเลขเร็ว",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#f0f7ff",
+  "theme_color": "#3b82f6"
+}
