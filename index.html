@@ -76,19 +76,34 @@ html, body {
 }
 
 /* 📱 เวทมนตร์จัดการแนวนอน: ย่อขนาดส่วนต่างๆ อัตโนมัติเมื่อจอเตี้ย */
-@media screen and (max-height: 500px) {
-    .h-48 { height: auto !important; padding: 0.75rem 0 !important; }
-    .text-6xl { font-size: 2.5rem !important; }
-    .text-5xl { font-size: 2rem !important; }
-    .text-4xl { font-size: 1.5rem !important; }
-    .card { padding: 1rem 1.5rem !important; border-radius: 1rem !important; }
-    h1.text-5xl { font-size: 1.8rem !important; margin-bottom: 0 !important; }
-    h2.text-3xl { font-size: 1.3rem !important; margin-bottom: 0.5rem !important; }
-    .dashboard-countdown-container { margin-bottom: 0.5rem !important; padding: 0.5rem !important; }
-    .py-8 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
-    .mb-8 { margin-bottom: 1rem !important; }
-    .mb-6 { margin-bottom: 0.75rem !important; }
-    #pre-game-screen p { margin-bottom: 0.5rem !important; font-size: 1rem !important; }
+/* 📱 เวทมนตร์จัดการแนวนอน: ย่อขนาดส่วนต่างๆ อัตโนมัติเมื่อจอเตี้ย */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    /* ย่อขนาดตัวอักษรโดยรวม ไม่ให้ล้นจอ */
+    .text-7xl { font-size: 2.5rem !important; line-height: 1.1 !important; }
+    .text-6xl { font-size: 2rem !important; line-height: 1.1 !important; }
+    .text-5xl { font-size: 1.75rem !important; line-height: 1.1 !important; }
+    .text-4xl { font-size: 1.5rem !important; line-height: 1.1 !important; }
+    .text-3xl { font-size: 1.25rem !important; line-height: 1.1 !important; }
+    .text-2xl { font-size: 1rem !important; line-height: 1.1 !important; }
+    
+    /* ลดระยะห่าง (Padding/Margin) ของการ์ดและปุ่มต่างๆ */
+    .p-8, .p-6, .card { padding: 1rem !important; border-radius: 0.75rem !important; }
+    .py-12, .py-8 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+    .mb-8, .mb-6 { margin-bottom: 0.5rem !important; }
+    .mt-8, .mt-6 { margin-top: 0.5rem !important; }
+    .gap-6, .gap-4 { gap: 0.5rem !important; }
+    
+    /* ปรับปุ่มเลือกด่านในหน้าเตรียมตัวให้เป็นแนวนอนและเตี้ยลง */
+    .h-48 { height: 70px !important; padding: 0 !important; display: flex; align-items: center; justify-content: center; }
+    
+    /* ปรับพื้นที่เนื้อหาให้กะทัดรัด */
+    .content-area { padding: 0.5rem 1rem !important; }
+    
+    /* ย่อขนาดหลอดเวลา */
+    .h-4 { height: 8px !important; }
+    
+    /* ปรับขนาด Input ของโจทย์ให้อ่านง่ายแต่ไม่ใหญ่เกิน */
+    input.text-3xl { font-size: 1.2rem !important; padding: 0.2rem !important; height: 35px !important; }
 }
         
         /* หน้าจอแจ้งเตือนให้หมุนโทรศัพท์ (จะโชว์เมื่อจอเป็นแนวตั้ง) */
@@ -583,7 +598,7 @@ html, body {
                         <button id="start-game-btn" class="btn btn-primary text-4xl px-16 py-8">เริ่ม!</button>
                     </div>
                     <div id="questions-screen" class="hidden">
-                        <div id="questions-container" class="grid grid-cols-1 gap-y-2 mb-4 text-xl max-w-2xl mx-auto"></div>
+                        <div id="questions-container" class="grid grid-cols-2 gap-x-6 gap-y-2 mb-2 w-full max-w-4xl mx-auto items-center"></div>
                         <div class="text-center mt-4">
                             <button id="submit-answers-btn" class="btn btn-secondary text-xl w-full max-w-md py-3 shadow-lg shadow-green-500/30">ส่งคำตอบ  🚀 </button>
                         </div>
@@ -1050,26 +1065,26 @@ html, body {
         
     </div> </div> 
     
-   <div class="keypad-area">
-    <div id="virtual-keypad" class="w-full h-full bg-gray-200 p-2 grid grid-cols-4 grid-rows-4 gap-2">
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('1')">1</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('2')">2</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('3')">3</button>
-        <button class="keypad-btn btn bg-orange-100 text-3xl font-black shadow-sm h-full rounded-lg text-orange-600 active:bg-orange-200" onmousedown="event.preventDefault()" onclick="virtualBackspace()"> ⌫ </button>
+<div class="keypad-area">
+    <div id="virtual-keypad" class="w-full h-full bg-gray-200 p-1.5 grid grid-cols-4 grid-rows-4 gap-1.5">
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('1')">1</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('2')">2</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('3')">3</button>
+        <button class="btn bg-orange-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-orange-600 active:bg-orange-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualBackspace()">⌫</button>
         
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('4')">4</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('5')">5</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('6')">6</button>
-        <button class="keypad-btn btn bg-red-100 text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-red-600 active:bg-red-200" onmousedown="event.preventDefault()" onclick="virtualType('-')">-</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('4')">4</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('5')">5</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('6')">6</button>
+        <button class="btn bg-red-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-red-600 active:bg-red-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('-')">-</button>
         
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('7')">7</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('8')">8</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('9')">9</button>
-        <button class="keypad-btn btn bg-blue-100 text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-blue-600 active:bg-blue-200" onmousedown="event.preventDefault()" onclick="virtualType('/')">/</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('7')">7</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('8')">8</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('9')">9</button>
+        <button class="btn bg-blue-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('/')">/</button>
         
-        <button class="keypad-btn btn bg-blue-100 text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-blue-600 active:bg-blue-200" onmousedown="event.preventDefault()" onclick="virtualType('.')">.</button>
-        <button class="keypad-btn btn bg-white text-3xl sm:text-4xl font-black shadow-sm h-full rounded-lg text-gray-800 active:bg-gray-300" onmousedown="event.preventDefault()" onclick="virtualType('0')">0</button>
-        <button class="keypad-btn btn bg-green-500 text-white text-xl sm:text-2xl font-black shadow-sm h-full rounded-lg active:bg-green-600 col-span-2" onmousedown="event.preventDefault()" onclick="virtualNext()">ถัดไป ➜</button>
+        <button class="btn bg-blue-100 text-xl sm:text-2xl font-bold shadow-sm rounded text-blue-600 active:bg-blue-200 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('.')">.</button>
+        <button class="btn bg-white text-xl sm:text-2xl font-bold shadow-sm rounded text-gray-800 active:bg-gray-300 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualType('0')">0</button>
+        <button class="btn bg-green-500 text-white text-lg sm:text-xl font-bold shadow-sm rounded active:bg-green-600 col-span-2 flex items-center justify-center" onmousedown="event.preventDefault()" onclick="virtualNext()">ถัดไป ➜</button>
     </div>
 </div>
 
